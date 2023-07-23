@@ -1,0 +1,79 @@
+<div class="dashboard-container " [class.is-mobile]="mobileQuery.matches">
+    <!--Barra de Principal-->
+    <mat-toolbar color="primary" class="dashboar-toolbar">
+    <!--BOTON HAMBURGUESA-->
+        <button mat-icon-butto (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+        <h1 class="app-name">S-Inventory</h1>
+
+       <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Cerrar Sesion
+                        </button>
+
+                    </mat-menu>
+                </li>
+
+            </ul>
+
+       </div>
+
+    </mat-toolbar>
+   <!--FIN DE BARRA PRINCIPAL-->
+   <mat-sidenav-container class="sidenav-container"
+        [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <!--El valor depende de la evaluación de la expresión 
+        mobileQuery.matches ? 56 : 0. Si mobileQuery.matches es verdadero, 
+        el margen superior será de 56 píxeles, de lo contrario, será de 0 
+        píxeles.-->
+        <mat-sidenav #snav [mode]="mobileQuery.matches? 'over': 'side'"
+                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"   >
+    <!-- Este tag html es un componente de Angular Material que representa una 
+        barra lateral deslizable. Los atributos utilizados son los siguientes:
+        #snav: Esto define una referencia al mat-sidenav para que pueda ser accedido en 
+        el código TypeScript asociado.[mode]="mobileQuery.matches? 'over': 'side'": Aquí 
+        se establece el modo del mat-sidenav. La sintaxis [propiedad]="valor" se usa para 
+        asignar valores dinámicos en Angular. Si la expresión mobileQuery.matches es verdadera,
+        el modo del sidenav será 'over', lo que significa que se deslizará sobre el contenido principal cuando 
+        esté activo. Si la expresión es falsa, el modo será 'side', lo que indica que el sidenav
+        se colocará al lado del contenido principal.-->
+
+            <mat-nav-list>
+                <!--Profile-->
+                <div class="profile-card">
+                    <div class="header">
+                        <h2>Sergio Flores</h2>
+                        <h4>sergioflores.vt@gmail.com</h4>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <a mat-list-item [routerLink]="nav.route" *ngFor="let nav of menuNav" >
+                    <mat-icon class="icono">{{ nav.icon }}</mat-icon>
+                    {{ nav.name }}
+                </a>
+
+            </mat-nav-list>
+
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+
+   </mat-sidenav-container> 
+
+   
+</div>
